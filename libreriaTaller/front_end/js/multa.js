@@ -1,4 +1,4 @@
-let url = "http://192.168.1.43:8000/libreria/api/v1/multa/";
+let url = "http://192.168.1.42:8000/libreria/api/v1/multa/";
 
 function listarMulta() {
   var busqueda = document.getElementById("buscar").value;
@@ -20,13 +20,17 @@ function listarMulta() {
                 let celdaFechaMulta = document.createElement("td");
                 let celdaUsuarioMultado = document.createElement("td");
                 let celdaEstadoPrestamo = document.createElement("td");
+                let celdaEstadoMulta = document.createElement("td");
                 
 
                 celdaId.innerText = result[i]["id"];
                 celdaValorMulta.innerText = result[i]["valor_multa"];
                 celdaFechaMulta.innerText = result[i]["fecha_multa"];
-                obtenerNombreUsuario(result[i]["usuario_multado"], celdaUsuarioMultado);
-                obtenerEstadoPrestamo(result[i]["prestamo"], celdaEstadoPrestamo);
+                celdaUsuarioMultado.innerText = result[i]["usuario_multado"];
+                celdaEstadoPrestamo.innerText = result[i]["prestamo"];
+                celdaEstadoMulta.innerText = result[i]["estado_multa"];
+                // obtenerNombreUsuario(result[i]["usuario_multado"], celdaUsuarioMultado);
+                // obtenerEstadoPrestamo(result[i]["prestamo"], celdaEstadoPrestamo);
                 
 
                 trRegistro.appendChild(celdaId);
@@ -34,25 +38,26 @@ function listarMulta() {
                 trRegistro.appendChild(celdaFechaMulta);
                 trRegistro.appendChild(celdaUsuarioMultado);
                 trRegistro.appendChild(celdaEstadoPrestamo);
+                trRegistro.appendChild(celdaEstadoMulta);
 
                 let celdaOpcion = document.createElement("td");
                 let botonEditarMulta = document.createElement("button");
                 botonEditarMulta.value = result[i]["id"];
-                botonEditarMulta.innerHTML = "<i class='fas fa-edit'></i> Editar";
+                botonEditarMulta.innerHTML ="<i class='fa-solid fa-pencil'></i>";
 
                 botonEditarMulta.onclick = function(e) {
                     $('#exampleModal').modal('show');
                     CargarFormulario();
                     consultarMultaID(this.value);
                 }
-                botonEditarMulta.className = "btn btn-danger";
+                botonEditarMulta.className = "btn btn-success";
 
                 celdaOpcion.appendChild(botonEditarMulta);
                 trRegistro.appendChild(celdaOpcion);
 
                 let botonEliminarMulta = document.createElement("button");
-                botonEliminarMulta.innerHTML = "<i class='fas fa-minus-circle'></i> Eliminar";
-                botonEliminarMulta.className = "btn btn-dark";
+                botonEliminarMulta.innerHTML =  "<i class='fas fa-trash-alt eliminar'></i>"; 
+                botonEliminarMulta.className = "btn btn-danger";
 
                 let multaIdParaEliminar = result[i]["id"];
                 botonEliminarMulta.onclick = function() {
@@ -70,36 +75,22 @@ function listarMulta() {
     });
 }
 
-function obtenerNombreUsuario(id, celdaUsuario) {
-    // Hacer una petición AJAX para obtener el nombre del usuario
-    $.ajax({
-        
-        url: 'http://192.168.1.43:8000/libreria/api/v1/multa/'+ '/' + id + '/',  // Ajusta la URL según tu configuración
-        type: 'GET',
-        success: function (usuario) {
-            celdaUsuario.innerText = usuario.nombreUsuario;
-        },
-        error: function (error) {
-            console.error('Error obteniendo nombre de usuario: ', error);
-        }
-    });
-}
 
-function obtenerEstadoPrestamo(id, celdaEstadoPrestamo) {
-    // Hacer una petición AJAX para obtener el título del libro
-    $.ajax({
+// function obtenerEstadoPrestamo(id, celdaEstadoPrestamo) {
+//     // Hacer una petición AJAX para obtener el título del libro
+//     $.ajax({
        
-        url: 'http://192.168.1.43:8000/libreria/api/v1/multa/'+ '/' + id + '/',  // Ajusta la URL según tu configuración
-        type: 'GET',
-        success: function (prestamo) {
-            celdaEstadoPrestamo.innerText = prestamo.estado_prestamo;
+//         url: 'http://192.168.1.43:8000/libreria/api/v1/multa/'+ '/' + id + '/',  // Ajusta la URL según tu configuración
+//         type: 'GET',
+//         success: function (prestamo) {
+//             celdaEstadoPrestamo.innerText = prestamo.estado_prestamo;
             
-        },
-        error: function (error) {
-            console.error('Error obteniendo estado del préstamo: ', error);
-        }
-    });
-}
+//         },
+//         error: function (error) {
+//             console.error('Error obteniendo estado del préstamo: ', error);
+//         }
+//     });
+// }
 
 
 function RegistrarMulta() {
@@ -146,14 +137,17 @@ function RegistrarMulta() {
   }
 
 
-function validarCampos() {
+  function validarCampos() {
    
     var valor_multa = document.getElementById("valor_multa");
     var fecha_multa = document.getElementById("fecha_multa");
-    var usuario = document.getElementById("usuario_multado"); 
+    var usuario_multado = document.getElementById("usuario_multado"); 
     var prestamo = document.getElementById("prestamo"); 
     var estado_multa = document.getElementById("estado_multa"); 
  
+ 
+   
+    
 
     return validarValorMulta(valor_multa) && validarFechaMulta(fecha_multa) && validarUsuarioMulta(usuario_multado) 
     && validarPrestamoMulta(prestamo) && validarEstadoMulta(estado_multa);
@@ -244,6 +238,8 @@ function validarEstadoMulta(estado){
     return valido;
 }
 
+
+
 /* metodo para obtener los datos en el modal de actualizar*/ 
 //1.Crear petición que traiga la información del medico por id
 function consultarMultaID(id){
@@ -318,57 +314,57 @@ function eliminarMulta(id){
    });
 }
 
-function cargarPrestamo(id, celdaEstadoPrestamo) {
-    // Hacer una petición AJAX para obtener el título del libro
-    $.ajax({
+// function cargarPrestamo(id, celdaEstadoPrestamo) {
+//     // Hacer una petición AJAX para obtener el título del libro
+//     $.ajax({
        
-        url: 'http://192.168.1.43:8000/libreria/api/v1/prestamo'+ '/' + id + '/',  // Ajusta la URL según tu configuración
-        type: 'GET',
-        success: function (prestamo) {
-            celdaEstadoPrestamo.innerText = prestamo.estado_prestamo;
+//         url: 'http://192.168.1.43:8000/libreria/api/v1/prestamo'+ '/' + id + '/',  // Ajusta la URL según tu configuración
+//         type: 'GET',
+//         success: function (prestamo) {
+//             celdaEstadoPrestamo.innerText = prestamo.estado_prestamo;
             
-        },
-        error: function (error) {
-            console.error('Error obteniendo estado del préstamo: ', error);
-        }
-    });
-}
+//         },
+//         error: function (error) {
+//             console.error('Error obteniendo estado del préstamo: ', error);
+//         }
+//     });
+// }
 
 
 function CargarFormulario() {
     cargarUsuario();
-    cargarPrestamo();
+    //cargarPrestamo();
 }
 //Función para traer los libros
-function cargarPrestamo() {
-    let urlPrestamo = "http://192.168.1.43:8000/libreria/api/v1/prestamo/";
+// function cargarPrestamo() {
+//     let urlPrestamo = "http://192.168.1.43:8000/libreria/api/v1/prestamo/";
 
-    $.ajax({
-        url: urlPrestamo,
-        type: "GET",
-        success: function (result) {
-            let prestamo = document.getElementById("prestamo");
-            prestamo.innerHTML ='<option selected disabled value="">Estado préstamo...</option>'; // Añadir opción por defecto
+//     $.ajax({
+//         url: urlPrestamo,
+//         type: "GET",
+//         success: function (result) {
+//             let prestamo = document.getElementById("prestamo");
+//             prestamo.innerHTML ='<option selected disabled value="">Estado préstamo...</option>'; // Añadir opción por defecto
             
-            for (let i = 0; i < result.length; i++) {
-                let estadoPrestamo = document.createElement("option");
-                estadoPrestamo.value = result[i]["id"];
-                estadoPrestamo.innerText = result[i]["Estado"];
-                prestamo.appendChild(estadoPrestamo);
-            }
-        },
-    });
-}
+//             for (let i = 0; i < result.length; i++) {
+//                 let estadoPrestamo = document.createElement("option");
+//                 estadoPrestamo.value = result[i]["id"];
+//                 estadoPrestamo.innerText = result[i]["Estado"];
+//                 prestamo.appendChild(estadoPrestamo);
+//             }
+//         },
+//     });
+// }
 
 function cargarUsuario() {
-    let urlusuario = "http://192.168.1.43:8000/libreria/api/v1/usuario/";
+    let urlusuario = "http://192.168.1.42:8000/libreria/api/v1/usuario/";
   
     $.ajax({
       url: urlusuario,
       type: "GET",
       success: function (result) {
         let usuario_multado = document.getElementById("usuario_multado");
-        usuario_multado.innerHTML = "";
+        usuario_multado.innerHTML ="";
   
         // se crea un option para que aparesca el mensaje de seleccionae su usuario
         let texto = document.createElement("option");
@@ -400,7 +396,7 @@ function updateMulta() {
     let formData = {
         "valor_multa": document.getElementById("valor_multa").value,
         "fecha_multa": document.getElementById("fecha_multa").value,
-        "usuario": document.getElementById("usuario").value,
+        "usuario_multado": document.getElementById("usuario_multado").value,
         "prestamo": document.getElementById("prestamo").value,
         "estado_multa": document.getElementById("estado_multa").value
     };
@@ -408,26 +404,26 @@ function updateMulta() {
 
     //Cuando estamos actualizando los datos, y lo hacemos correctamente Aparecerá la Alerta EXCELENTE ***
     if(validarCampos()){
-    $.ajax({
-        url: url + id+"/",
-        type: "PUT",
-        data: formData,
-        success: function(result) {
-            Swal.fire({
-                title: "Excelente",
-                text: "Su registro se actualizó correctamente",
-                icon: "success"
-            });
-            
-            var modal = document.getElementById("exampleModal"); 
-            modal.style.display = "hide";
-
-            listarMulta(); //Lista los prestamos después de actualizar
-        },
-        error: function(error) {
-            Swal.fire("Error", "Error al guardar", "error");
-        }  
-    });
+        $.ajax({
+            url: url + id+"/",
+            type: "PUT",
+            data: formData,
+            success: function(result) {
+                Swal.fire({
+                    title: "Excelente",
+                    text: "Su registro se actualizó correctamente",
+                    icon: "success"
+                });
+                
+                var modal = document.getElementById("exampleModal"); 
+                modal.style.display = "hide";
+    
+                listarMulta(); //Lista los médicos después de actualizar
+            },
+            error: function(error) {
+                Swal.fire("Error", "Error al guardar", "error");
+            }  
+        });
     }else{
         Swal.fire({
             title: "Error!",

@@ -30,6 +30,18 @@ class usuarioSerializer(serializers.ModelSerializer):
         model= usuario
         fields='__all__'
         
+#class PrestamoSerializer(serializers.ModelSerializer):
+    #agregar los campos necesarios para mostrar
+    #si de desea agregar todos los campos se puede utilizar la 
+    #funcion _all_
+    #libro = serializers.SlugRelatedField(slug_field='id', queryset=libro.objects.all())
+    #usuario = serializers.SlugRelatedField(slug_field='id', queryset=usuario.objects.all())
+    
+  
+    #class Meta:
+    #    model = prestamo
+    #    fields='_all_'    
+       
 class prestamoSerializer(serializers.ModelSerializer):
     class Meta:
         model= prestamo
@@ -39,4 +51,6 @@ class multaSerializer(serializers.ModelSerializer):
     class Meta: 
         model= multa
         fields='__all__'
+        
+
            

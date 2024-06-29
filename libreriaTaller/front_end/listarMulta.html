@@ -17,7 +17,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
-  <body onload="listarPrestamo();">
+  <body onload="listarMulta();">
         <!-- star container blanco -->
         <div class="contenedor-blanco"></div>
         <!-- container blanco end -->
@@ -95,9 +95,11 @@
         <table class="table table-hover">
             <thead class="table-light">
                 <tr>
+                    <th scope="col">Código</th>
                     <th scope="col">valor multa</th>
                     <th scope="col">fecha multa</th>
                     <th scope="col">usuario multado</th>
+                    <th scope="col">estado prestamo</th>
                     <th scope="col">estado multa</th>
                     
 
@@ -141,7 +143,7 @@
                                   <option selected disabled value="">
                                     Seleccione el usuario
                                   </option>
-                                  <option value="PréstamoZ"></option>
+                                  <option value=""></option>
                                   <option value=""></option>
                                 </select>
                             </div>
@@ -152,8 +154,8 @@
                                 <label for="tipoUsuario" class="form-label">Estado de la multa*</label>
                                 <select name="tipoUsuario" id="tipoUsuario" class="form-select">
                                     <option selected disabled value="">¿estado de lo multa?...</option>
-                                    <option value="Pendiente">Pendiente</option>
-                                    <option value="Pago">Pago</option>
+                                    <option value="1">Pendiente</option>
+                                    <option value="2">Pago</option>
                                 </select>
                             </div>
                         

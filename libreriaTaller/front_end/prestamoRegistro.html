@@ -87,7 +87,7 @@
             <p><strong>Todos los campos que contengan (*) son obligatorios</strong> </p>
         </div>
         <div class="col-md-4">
-            <label for="Estado" class="form-label">Tipo de usuario*</label>
+            <label for="Estado" class="form-label">estado de prestamo*</label>
              <select name="Estado" id="Estado" class="form-select" > 
                 <option selected disabled value="">¿en que tipo de prestamo esta?...</option>
                 <option value="1">Préstamo</option>
@@ -98,12 +98,12 @@
     
         <div class="col-md-4">
             <label for="fecha_prestamo" class="form-label">Fecha de Prestamo*</label>
-            <input type="date" class="form-control"  name="fecha_prestamo" id="fecha_prestamo" >
+            <input type="date" class="form-control"  name="fecha_prestamo" id="fecha_prestamo" onfocusout="validarFechaPrestamo(this);">
         </div>
         
         <div class="col-md-4">
             <label for="usuario_prestamo" class="form-label">Usuario*</label>
-            <select name="usuario_prestamo" id="usuario_prestamo" class="form-select">
+            <select name="usuario_prestamo" id="usuario_prestamo" class="form-select" onfocusout="validarUsuarioPrestamo(this);">
               <option selected disabled value="">Seleccione su Usuario </option>
               <option value=""></option>
               <option value=""></option>
@@ -112,12 +112,12 @@
     
         <div class="col-md-4">
             <label for="fecha_devolucion" class="form-label">Fecha de devolucion*</label>
-            <input type="date" class="form-control" name="fecha_devolucion" id="fecha_devolucion" >
+            <input type="date" class="form-control" name="fecha_devolucion" id="fecha_devolucion" onfocusout="validarFechaDevolucion(this);">
         </div>
         
         <div class="col-md-4">
             <label for="libro_prestamo" class="form-label">Libro*</label>
-            <select name="libro_prestamo" id="libro_prestamo" class="form-select">
+            <select name="libro_prestamo" id="libro_prestamo" class="form-select" onfocusout="validarLibroPrestado(this);">
               <option selected disabled value="">Seleccione el Libro</option>
               <option value=""></option>
               <option value=""></option>

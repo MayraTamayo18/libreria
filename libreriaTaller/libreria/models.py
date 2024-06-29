@@ -21,7 +21,7 @@ class libro(models.Model):
     num_ejem_ocupados= models.IntegerField(max_length=3) 
     
     def __str__(self):
-        return self.titulo
+        return self.autor
     
 class usuario(models.Model):
     nombre=models.CharField(max_length=60)
@@ -32,10 +32,10 @@ class usuario(models.Model):
         (2, 'bibliotecario'),
         (3, 'administrador') 
     ]
-    tipoUsuario=models.IntegerField(max_length=20, choices=tipo_usuario)    
+    tipoUsuario=models.IntegerField(choices=tipo_usuario)    
     
     def __str__(self):
-        return self.title
+        return self.nombre
     
 class prestamo(models.Model):
     fecha_prestamo=models.DateField()
@@ -45,7 +45,7 @@ class prestamo(models.Model):
         (2, 'Entregado'),
         (3, 'Cancelado') 
     ]
-    Estado=models.IntegerField(max_length=20, choices=estado)
+    Estado=models.IntegerField(choices=estado)
     usuario_prestamo = models.ForeignKey(usuario, related_name='prestamo', on_delete=models.PROTECT)
     libro_prestamo = models.ForeignKey(libro, related_name='prestamo', on_delete=models.CASCADE)
 
@@ -62,7 +62,7 @@ class multa(models.Model):
         (1, 'Pendiente'),
         (2, 'Pagado'),
     ]
-    estado_multa = models.IntegerField(max_length=20, choices=estado_multa)
+    estado_multa = models.IntegerField(choices=estado_multa)
     
     def _str_(self):
         return f"Multa de {self.valor_multa} para {self.usuario_multado}"

@@ -1,6 +1,6 @@
 //se almacena la url de la api
-let url = "http://192.168.1.43:8000/libreria/api/v1/prestamo/";
-function listarUsuario() {
+let url ="http://192.168.1.42:8000/libreria/api/v1/prestamo/";
+function listarPrestamo() {
   var busqueda = document.getElementById("buscar").value;
   var urlBusqueda = url;
   if (busqueda != "") {
@@ -69,7 +69,7 @@ function listarUsuario() {
 
         let prestamoIdParaEliminar = result[i]["id"];
         botonEliminarPrestamo.onclick = function () {
-          eliminarUsuario(prestamoIdParaEliminar); // Llama a la función eliminarProducto con el ID del producto
+          eliminarPrestamo(prestamoIdParaEliminar); // Llama a la función eliminarProducto con el ID del producto
         };
 
         celdaOpcion.appendChild(botonEliminarPrestamo);
@@ -130,12 +130,91 @@ function registrarPrestamo() {
   }
 }
 
-function validarCampos(){ 
-  return true;
+function validarCampos() {
+   
+  var fecha_prestamo = document.getElementById("fecha_prestamo");
+  var fecha_devolucion = document.getElementById("fecha_devolucion");
+  var usuario_prestamo = document.getElementById("usuario_prestamo"); 
+  var libro_prestamo = document.getElementById("libro_prestamo"); 
+  
+
+  return validarFechaPrestamo(fecha_prestamo) && validarFechaDevolucion(fecha_devolucion) && validarUsuarioPrestamo(usuario_prestamo) 
+  && validarLibroPrestado(libro_prestamo);
 }
 
-//Cuando le damos click al boton de guardar, este llamara a la function Update por medio del onclick******
-function updateUsuario() {
+function validarFechaPrestamo(fecha_prestamo) {
+  if (!fecha_prestamo || !fecha_prestamo.value) {
+      return false;
+  }
+
+  let valor = fecha_prestamo.value;
+  let valido = true;
+  if (valor.length < 1 || valor.length > 60) {
+      valido = false;
+  }
+
+  if (valido) {
+    fecha_prestamo.className = "form-control is-valid";
+  } else {
+    fecha_prestamo.className = "form-control is-invalid";
+  }
+  return valido;
+}
+
+
+function validarFechaDevolucion(fechaDevolucion) {
+  if (!fechaDevolucion || !fechaDevolucion.value) {
+      return false;
+  }
+
+  let valor = fechaDevolucion.value;
+  let valido = true;
+  if (valor.length < 1 || valor.length > 60) {
+      valido = false;
+  }
+
+  if (valido) {
+      fechaDevolucion.className = "form-control is-valid";
+  } else {
+      fechaDevolucion.className = "form-control is-invalid";
+  }
+  return valido;
+}
+
+
+function validarUsuarioPrestamo(usuarioPrestamo){
+  var valido=true;
+  if(usuarioPrestamo.value.length <=0 || usuarioPrestamo.value.length > 45){
+      valido=false;
+  }
+
+  if (valido) {
+      usuarioPrestamo.className = "form-control is-valid"
+  }
+  else{
+      usuarioPrestamo.className = "form-control is-invalid"
+  }
+  return valido;
+}
+
+function validarLibroPrestado(libroPrestado){
+  var valido=true;
+  if(libroPrestado.value.length <=0 || libroPrestado.value.length > 100){
+      valido=false;
+  }
+
+  if (valido) {
+      libroPrestado.className = "form-control is-valid"
+  }
+  else{
+      libroPrestado.className = "form-control is-invalid"
+  }
+  return valido;
+}
+
+
+
+function updatePrestamo(){
   var id = document.getElementById("id").value;
 
   let formData = {
@@ -144,40 +223,83 @@ function updateUsuario() {
     "Estado": document.getElementById("Estado").value,
     "usuario_prestamo": document.getElementById("usuario_prestamo").value,
     "libro_prestamo": document.getElementById("libro_prestamo").value,
-
+     
   };
 
 
   //Cuando estamos actualizando los datos, y lo hacemos correctamente Aparecerá la Alerta EXCELENTE *****
-  if (validarCampos()) {
-    $.ajax({
-      url: url + id + "/",
+  if(validarCampos()){
+  $.ajax({
+      url: url + id+"/",
       type: "PUT",
       data: formData,
-      success: function (result) {
-        Swal.fire({
-          title: "Excelente",
-          text: "Su registro se actualizó correctamente",
-          icon: "success"
-        });
+      success: function(result) {
+          Swal.fire({
+              title: "Excelente",
+              text: "Su registro se actualizó correctamente",
+              icon: "success"
+          });
+          
+          var modal = document.getElementById("exampleModal"); 
+          modal.style.display = "hide";
 
-        var modal = document.getElementById("exampleModal");
-        modal.style.display = "hide";
-
-        listarUsuario(); //Lista los médicos después de actualizar
+          listarUsuario(); //Lista los médicos después de actualizar
       },
-      error: function (error) {
-        Swal.fire("Error", "Error al guardar", "error");
-      }
-    });
-  } else {
-    Swal.fire({
-      title: "Error!",
-      text: "Complete los campos correctamente",
-      icon: "error"
-    });
+      error: function(error) {
+          Swal.fire("Error", "Error al guardar", "error");
+      }  
+  });
+  }else{
+      Swal.fire({
+          title: "Error!",
+          text: "Complete los campos correctamente",
+          icon: "error"
+      });
   }
 }
+
+//Cuando le damos click al boton de guardar, este llamara a la function Update por medio del onclick******
+// function updatePrestamo() {
+//   var id = document.getElementById("id").value;
+
+//   let formData = {
+//     "fecha_prestamo": document.getElementById("fecha_prestamo").value,
+//     "fecha_devolucion": document.getElementById("fecha_devolucion").value,
+//     "Estado": document.getElementById("Estado").value,
+//     "usuario_prestamo": document.getElementById("usuario_prestamo").value,
+//     "libro_prestamo": document.getElementById("libro_prestamo").value,
+//   };
+
+//   //Cuando estamos actualizando los datos, y lo hacemos correctamente Aparecerá la Alerta EXCELENTE *****
+//   if(validarCampos()){
+//     $.ajax({
+//       url: url + id+"/",
+//       type: "PUT",
+//       data: formData,
+//       success: function(result) {
+//         Swal.fire({
+//           title: "Excelente",
+//           text: "Su registro se actualizó correctamente",
+//           icon: "success"
+//         });
+            
+//         var modal = document.getElementById("exampleModal"); 
+//         modal.style.display = "hide";
+
+//         listarPrestamo(); //Lista los médicos después de actualizar
+//       },
+//       error: function(error) {
+//         Swal.fire("Error", "Error al guardar", "error");
+//       }  
+//     });
+//     }else{
+//       Swal.fire({
+//         title: "Error!",
+//         text: "Complete los campos correctamente",
+//         icon: "error"
+//       });
+//   }
+// }
 
 
 /* metodo para obtener los datos en el modal de actualizar*/
@@ -268,7 +390,7 @@ function CargarFormulario() {
 }
 //funcion para traer los usuarios
 function cargarUsuario() {
-  let urlusuario = "http://192.168.1.43:8000/libreria/api/v1/usuario/";
+  let urlusuario = "http://192.168.1.42:8000/libreria/api/v1/usuario/";
 
   $.ajax({
     url: urlusuario,
@@ -298,7 +420,7 @@ function cargarUsuario() {
 }
 
 function cargarLibro() {
-  let urlLibro = "http://192.168.1.43:8000/libreria/api/v1/libro/";
+  let urlLibro = "http://192.168.1.42:8000/libreria/api/v1/libro/";
 
   $.ajax({
     url: urlLibro,

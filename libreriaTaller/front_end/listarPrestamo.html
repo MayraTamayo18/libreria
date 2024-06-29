@@ -64,8 +64,8 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Multas</a>
                                 <div class="dropdown-menu bg-light m-0">                                
-                                    <a href="#" class="dropdown-item">Registro de multas</a>
-                                    <a href="#" class="dropdown-item">Lista de multas</a>
+                                    <a href="multaRegistro.html" class="dropdown-item">Registro de multas</a>
+                                    <a href="listarMulta.html" class="dropdown-item">Lista de multas</a>
                                 </div>
                             </div>
                         
@@ -95,6 +95,7 @@
         <table class="table table-hover">
             <thead class="table-light">
                 <tr>
+                    <th scope="col">Codigo</th>
                     <th scope="col">fecha Prestamo</th>
                     <th scope="col">fecha Devolucion</th>
                     <th scope="col">Estado</th>
@@ -127,41 +128,38 @@
 
                             <div class="col-6">
                                 <label for="fecha_prestamo" class="form-label">Fecha de Prestamo*</label>
-                                <input type="date" class="form-control"  name="fecha_prestamo" id="fecha_prestamo">
+                                <input type="date" class="form-control"  name="fecha_prestamo" id="fecha_prestamo" onfocusout="validarFechaPrestamo(this);">
                             </div>
 
                             <div class="col-6">
                                 <label for="fecha_devolucion" class="form-label">Fecha de devolucion*</label>
-                                <input type="date" class="form-control" name="fecha_devolucion" id="fecha_devolucion">
+                                <input type="date" class="form-control" name="fecha_devolucion" id="fecha_devolucion"onfocusout="validarFechaDevolucion(this);">
                             </div>
     
                             <div class="col-6">
-                                <label for="Estado" class="form-label">Estado*</label>
-                                <select name="Estado" id="Estado" class="form-select">
-                                  <option selected disabled value="">
-                                    Seleccione el Libro
-                                  </option>
-                                  <option value=""></option>
-                                  <option value=""></option>
+                                <label for="Estado" class="form-label">estado de prestamo*</label>
+                                 <select name="Estado" id="Estado" class="form-select" onfocusout="validarEstadoPrestamo(this);"> 
+                                    <option selected disabled value="">¿en que tipo de prestamo esta?...</option>
+                                    <option value="1">Préstamo</option>
+                                    <option value="2">Entregado</option>
+                                    <option value="3">Cancelado</option>
                                 </select>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="tipoUsuario" class="form-label">Tipo de usuario*</label>
-                                 <select name="tipoUsuario" id="tipoUsuario" class="form-select" > 
+                                 <select name="tipoUsuario" id="tipoUsuario" class="form-select"> 
                                     <option selected disabled value="">¿que tipo de usuario eres?...</option>
-                                    <option value="Lector">Lector</option>
-                                    <option value="Bibliotecario">Bibliotecario</option>
-                                    <option value="Administrador">Administrador</option>
+                                    <option value="1">Lector</option>
+                                    <option value="2">Bibliotecario</option>
+                                    <option value="3">Administrador</option>
                                 </select>
                             </div>
 
                             <div class="col-6">
                                 <label for="usuario_prestamo" class="form-label">Usuario*</label>
-                                <select name="usuario_prestamo" id="usuario_prestamo" class="form-select">
-                                  <option selected disabled value="">
-                                    Seleccione el Libro
-                                  </option>
+                                <select name="usuario_prestamo" id="usuario_prestamo" class="form-select" >
+                                  <option selected disabled value="">Seleccione su Usuario </option>
                                   <option value=""></option>
                                   <option value=""></option>
                                 </select>
@@ -169,7 +167,7 @@
 
                             <div class="col-6">
                                 <label for="libro_prestamo" class="form-label">Libro*</label>
-                                <select name="libro_prestamo" id="libro_prestamo" class="form-select">
+                                <select name="libro_prestamo" id="libro_prestamo" class="form-select" onfocusout="validarLibroPrestado(this);">
                                   <option selected disabled value="">
                                     Seleccione el Libro
                                   </option>
