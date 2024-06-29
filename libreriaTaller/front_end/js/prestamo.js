@@ -1,6 +1,8 @@
 //se almacena la url de la api
-let url ="http://192.168.1.42:8000/libreria/api/v1/prestamo/";
+let url ="http://192.168.1.43:8000/libreria/api/v1/prestamo/";
 function listarPrestamo() {
+  cargarUsuario();
+  cargarLibro();
   var busqueda = document.getElementById("buscar").value;
   var urlBusqueda = url;
   if (busqueda != "") {
@@ -241,9 +243,9 @@ function updatePrestamo(){
           });
           
           var modal = document.getElementById("exampleModal"); 
-          modal.style.display = "hide";
+          modal.style.display = "hidde";
 
-          listarUsuario(); //Lista los médicos después de actualizar
+          listarPrestamo(); //Lista los médicos después de actualizar
       },
       error: function(error) {
           Swal.fire("Error", "Error al guardar", "error");
@@ -257,50 +259,6 @@ function updatePrestamo(){
       });
   }
 }
-
-//Cuando le damos click al boton de guardar, este llamara a la function Update por medio del onclick******
-// function updatePrestamo() {
-//   var id = document.getElementById("id").value;
-
-//   let formData = {
-//     "fecha_prestamo": document.getElementById("fecha_prestamo").value,
-//     "fecha_devolucion": document.getElementById("fecha_devolucion").value,
-//     "Estado": document.getElementById("Estado").value,
-//     "usuario_prestamo": document.getElementById("usuario_prestamo").value,
-//     "libro_prestamo": document.getElementById("libro_prestamo").value,
-//   };
-
-//   //Cuando estamos actualizando los datos, y lo hacemos correctamente Aparecerá la Alerta EXCELENTE *****
-//   if(validarCampos()){
-//     $.ajax({
-//       url: url + id+"/",
-//       type: "PUT",
-//       data: formData,
-//       success: function(result) {
-//         Swal.fire({
-//           title: "Excelente",
-//           text: "Su registro se actualizó correctamente",
-//           icon: "success"
-//         });
-            
-//         var modal = document.getElementById("exampleModal"); 
-//         modal.style.display = "hide";
-
-//         listarPrestamo(); //Lista los médicos después de actualizar
-//       },
-//       error: function(error) {
-//         Swal.fire("Error", "Error al guardar", "error");
-//       }  
-//     });
-//     }else{
-//       Swal.fire({
-//         title: "Error!",
-//         text: "Complete los campos correctamente",
-//         icon: "error"
-//       });
-//   }
-// }
-
 
 /* metodo para obtener los datos en el modal de actualizar*/
 //1.Crear petición que traiga la información del cliente por id
@@ -367,7 +325,7 @@ function eliminarPrestamo(id) {
             timer: 1500
           });
           // Actualizar la lista de cliente después de eliminar
-          listarUsuario();
+          listarPrestamo();
         },
         error: function (xhr, status, error) {
           // Manejo de errores
@@ -390,7 +348,7 @@ function CargarFormulario() {
 }
 //funcion para traer los usuarios
 function cargarUsuario() {
-  let urlusuario = "http://192.168.1.42:8000/libreria/api/v1/usuario/";
+  let urlusuario = "http://192.168.1.43:8000/libreria/api/v1/usuario/";
 
   $.ajax({
     url: urlusuario,
@@ -420,7 +378,7 @@ function cargarUsuario() {
 }
 
 function cargarLibro() {
-  let urlLibro = "http://192.168.1.42:8000/libreria/api/v1/libro/";
+  let urlLibro = "http://192.168.1.43:8000/libreria/api/v1/libro/";
 
   $.ajax({
     url: urlLibro,

@@ -1,4 +1,4 @@
-let url = "http://192.168.1.42:8000/libreria/api/v1/multa/";
+let url = "http://192.168.1.43:8000/libreria/api/v1/multa/";
 
 function listarMulta() {
   var busqueda = document.getElementById("buscar").value;
@@ -76,21 +76,7 @@ function listarMulta() {
 }
 
 
-// function obtenerEstadoPrestamo(id, celdaEstadoPrestamo) {
-//     // Hacer una petición AJAX para obtener el título del libro
-//     $.ajax({
-       
-//         url: 'http://192.168.1.43:8000/libreria/api/v1/multa/'+ '/' + id + '/',  // Ajusta la URL según tu configuración
-//         type: 'GET',
-//         success: function (prestamo) {
-//             celdaEstadoPrestamo.innerText = prestamo.estado_prestamo;
-            
-//         },
-//         error: function (error) {
-//             console.error('Error obteniendo estado del préstamo: ', error);
-//         }
-//     });
-// }
+
 
 
 function RegistrarMulta() {
@@ -108,7 +94,7 @@ function RegistrarMulta() {
         "estado_multa": estado_multa
         
     };
-
+    // console.log(formData);
     if (validarCampos()) {
         $.ajax({
             url: url,
@@ -126,7 +112,8 @@ function RegistrarMulta() {
               Swal.fire("Error", "Error al guardar ", "error");
             }
           });
-        }else{
+    }
+        else{
          // alert("llena los campos correctamente")
           Swal.fire({
             title: "Error!",
@@ -357,7 +344,7 @@ function CargarFormulario() {
 // }
 
 function cargarUsuario() {
-    let urlusuario = "http://192.168.1.42:8000/libreria/api/v1/usuario/";
+    let urlusuario = "http://192.168.1.43:8000/libreria/api/v1/usuario/";
   
     $.ajax({
       url: urlusuario,

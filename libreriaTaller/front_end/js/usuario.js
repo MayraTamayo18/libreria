@@ -1,5 +1,5 @@
 //se almacena la url de la api
-let url="http://192.168.1.42:8000/libreria/api/v1/usuario/";
+let url="http://192.168.1.43:8000/libreria/api/v1/usuario/";
 function listarUsuario() {
     var busqueda = document.getElementById("buscar").value;
     var urlBusqueda = url;
