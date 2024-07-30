@@ -1,10 +1,10 @@
 //se almacena la url de la api
-let url ="http://192.168.1.43:8000/libreria/api/v1/prestamo/";
+//let url ="http://10.192.89.92:8000/libreria/api/v1/prestamo/";
 function listarPrestamo() {
   cargarUsuario();
   cargarLibro();
   var busqueda = document.getElementById("buscar").value;
-  var urlBusqueda = url;
+  var urlBusqueda = urlPrestamo;
   if (busqueda != "") {
     urlBusqueda += "?search=" + busqueda;
   }
@@ -107,7 +107,7 @@ function registrarPrestamo() {
   if(validarCampos()){
 
     $.ajax({
-      url: url,
+      url: urlPrestamo,
       type: "POST",
       data: formData,
       success: function(result){
@@ -232,7 +232,7 @@ function updatePrestamo(){
   //Cuando estamos actualizando los datos, y lo hacemos correctamente Aparecerá la Alerta EXCELENTE *****
   if(validarCampos()){
   $.ajax({
-      url: url + id+"/",
+      url: urlPrestamo + id+"/",
       type: "PUT",
       data: formData,
       success: function(result) {
@@ -265,7 +265,7 @@ function updatePrestamo(){
 function consultarPrestamoID(id) {
   //alert(id);
   $.ajax({
-    url: url + id,
+    url: urlPrestamo + id,
     type: "GET",
     success: function (result) {
 
@@ -313,7 +313,7 @@ function eliminarPrestamo(id) {
     // Si el usuario confirma la eliminación, proceder con la solicitud AJAX
     if (result.isConfirmed) {
       $.ajax({
-        url: url + id + "/",
+        url: urlPrestamo + id + "/",
         type: "DELETE",
         success: function (eliminarPermanente) {
           // Mostrar un mensaje de éxito
@@ -348,7 +348,7 @@ function CargarFormulario() {
 }
 //funcion para traer los usuarios
 function cargarUsuario() {
-  let urlusuario = "http://192.168.1.43:8000/libreria/api/v1/usuario/";
+  let urlusuario = urlUsuario;
 
   $.ajax({
     url: urlusuario,
@@ -378,10 +378,10 @@ function cargarUsuario() {
 }
 
 function cargarLibro() {
-  let urlLibro = "http://192.168.1.43:8000/libreria/api/v1/libro/";
+  let urllibro = urlLibro;
 
   $.ajax({
-    url: urlLibro,
+    url: urllibro,
     type: "GET",
     success: function (result) {
       let libro_prestamo = document.getElementById("libro_prestamo");

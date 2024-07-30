@@ -1,13 +1,13 @@
-let url = "http://192.168.1.43:8000/libreria/api/v1/multa/";
+
 
 function listarMulta() {
   var busqueda = document.getElementById("buscar").value;
-  var urlBusqueda = url;
+  var urlBusqueda = urlMulta;
   if (busqueda != "") {
     urlBusqueda += "?search=" + busqueda;
   }
     $.ajax({
-        url: url,
+        url: urlBusqueda,
         type: "GET",
         success: function(result) {
             console.log(result);
@@ -97,7 +97,7 @@ function RegistrarMulta() {
     // console.log(formData);
     if (validarCampos()) {
         $.ajax({
-            url: url,
+            url: urlMulta,
             type: "POST",
             data: formData,
             success: function(result){
@@ -232,7 +232,7 @@ function validarEstadoMulta(estado){
 function consultarMultaID(id){
     //alert(id);
     $.ajax({
-        url:url+id,
+        url:urlMulta+id,
         type:"GET",
         success: function(result){
             document.getElementById("id").value=result["id"];
@@ -279,7 +279,7 @@ function eliminarMulta(id){
     }).then((result)=>{
       if (result.isConfirmed){
         $.ajax({
-          url: url +id,
+          url: urlMulta +id,
           type: "DELETE",
           success: function(result){
             swal.fire(
@@ -344,7 +344,7 @@ function CargarFormulario() {
 // }
 
 function cargarUsuario() {
-    let urlusuario = "http://192.168.1.43:8000/libreria/api/v1/usuario/";
+    let urlusuario = urlUsuario;
   
     $.ajax({
       url: urlusuario,
@@ -392,7 +392,7 @@ function updateMulta() {
     //Cuando estamos actualizando los datos, y lo hacemos correctamente Aparecerá la Alerta EXCELENTE ***
     if(validarCampos()){
         $.ajax({
-            url: url + id+"/",
+            url: urlMulta + id+"/",
             type: "PUT",
             data: formData,
             success: function(result) {

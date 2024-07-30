@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 from .serializer import libroSerializer
 from .models import libro
@@ -22,6 +24,17 @@ class libroView(viewsets.ModelViewSet):
     #para filtro de buscar 
     filter_backends=[filters.SearchFilter]
     search_fields=['$titulo', '$autor', '$genero', '$isbn']
+    #modificamos la respuesta del eliminar para que la api responda algo cuando haga la accion 
+    @api_view(['DELETE'])
+    def eliminarLIbro(request, pk):
+        try:
+            libro = libro.objects.get(pk=pk)
+        except libro.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        if request.method == 'DELETE':
+            libro.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT,message="se elimino correctamente")       
     
 class usuarioView(viewsets.ModelViewSet):
     serializer_class=usuarioSerializer

@@ -1,8 +1,8 @@
 //se almacena la url de la api
-let url="http://192.168.1.43:8000/libreria/api/v1/usuario/";
+//let url="http://10.192.89.92:8000/libreria/api/v1/usuario/";
 function listarUsuario() {
     var busqueda = document.getElementById("buscar").value;
-    var urlBusqueda = url;
+    var urlBusqueda = urlUsuario;
     if (busqueda!=""){
         urlBusqueda+="?search="+busqueda;
     }   
@@ -101,7 +101,7 @@ function registrarUsuario() {
     if(validarCampos()){
 
         $.ajax({
-          url: url,
+          url: urlUsuario,
           type: "POST",
           data: formData,
           success: function(result){
@@ -200,7 +200,7 @@ function updateUsuario() {
     //Cuando estamos actualizando los datos, y lo hacemos correctamente Aparecerá la Alerta EXCELENTE *****
     if(validarCampos()){
     $.ajax({
-        url: url + id+"/",
+        url: urlUsuario + id+"/",
         type: "PUT",
         data: formData,
         success: function(result) {
@@ -234,7 +234,7 @@ function updateUsuario() {
 function consultarUsuarioID(id){
     //alert(id);
     $.ajax({
-        url:url+id,
+        url:urlUsuario+id,
         type:"GET",
         success: function(result){
             
@@ -279,7 +279,7 @@ function limpiar(){
       // Si el usuario confirma la eliminación, proceder con la solicitud AJAX
       if (result.isConfirmed) {
         $.ajax({
-          url: url + id+"/",
+          url: urlUsuario + id+"/",
           type: "DELETE",
           success: function (eliminarPermanente) {
             // Mostrar un mensaje de éxito
